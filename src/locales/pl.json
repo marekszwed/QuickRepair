@@ -1,0 +1,39 @@
+{
+	"Header": {
+		"login": "Zaloguj się",
+		"log out": "Wyloguj się",
+		"register": "Zarejestruj się"
+	},
+	"Reviews": [
+		{
+			"review": "Szybko znalazłem fachowca i problem został rozwiązany tego samego dnia."
+		},
+		{
+			"review": "Prosta obsługa, świetny pomysł – wreszcie łatwo znaleźć kogoś do naprawy."
+		},
+		{
+			"review": "Polecam! Fachowiec przyjechał punktualnie i naprawił sprzęt w godzinę."
+		},
+		{
+			"review": "Dzięki QuickRepair zaoszczędziłem mnóstwo czasu na szukanie specjalisty."
+		},
+		{
+			"review": "Intuicyjna aplikacja, wszystko działa bez zarzutu."
+		},
+		{
+			"review": "Świetne wsparcie i szybki kontakt z usługodawcą."
+		},
+		{
+			"review": "Naprawa przebiegła sprawnie, a cena była uczciwa."
+		},
+		{
+			"review": "Idealne rozwiązanie dla zapracowanych – wszystko w jednym miejscu."
+		},
+		{
+			"review": "Zlecenie dodane w kilka kliknięć, a wykonawca znalazł się w 15 minut."
+		},
+		{
+			"review": "Jestem bardzo zadowolony – wreszcie łatwo i szybko można zamówić naprawę."
+		}
+	]
+}
