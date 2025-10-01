@@ -1,4 +1,4 @@
-import Header from "@/common/Header";
+import Header from "@/app/_components/common/Header";
 import AppThemeProvider from "@/providers/AppThemeProvider";
 
 export default function RootLayout({
