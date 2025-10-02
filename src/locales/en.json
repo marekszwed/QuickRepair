@@ -1,0 +1,40 @@
+{
+	"Header": {
+		"login": "Log in",
+		"log out": "Log out",
+		"register": "Register",
+		"services": "Services"
+	},
+	"Reviews": [
+		{
+			"review": "I quickly found a professional, and the issue was fixed the same day."
+		},
+		{
+			"review": "Simple to use, great idea – finally, it’s easy to find someone for repairs."
+		},
+		{
+			"review": "Highly recommend! The technician arrived on time and fixed the equipment in an hour."
+		},
+		{
+			"review": "Thanks to QuickRepair, I saved a lot of time looking for a specialist."
+		},
+		{
+			"review": "Intuitive app, everything works flawlessly."
+		},
+		{
+			"review": "Great support and fast contact with the service provider."
+		},
+		{
+			"review": "The repair went smoothly, and the price was fair."
+		},
+		{
+			"review": "Perfect solution for busy people – everything in one place."
+		},
+		{
+			"review": "Task added in a few clicks, and the technician arrived within 15 minutes."
+		},
+		{
+			"review": "I’m very satisfied – finally, it’s easy and fast to order a repair."
+		}
+	]
+}
