@@ -13,15 +13,15 @@ function OpinionCarousel() {
 			<Swiper
 				slidesPerView={5}
 				spaceBetween={30}
-				centeredSlides={true}
-				navigation={true}
-				loop={true}
+				centeredSlides
+				navigation
+				loop
 				autoplay={{
 					delay: 2500,
 					disableOnInteraction: false,
 				}}
 				modules={[Autoplay, Navigation]}
-				className="mySwiper"
+				className="reviewCard"
 			>
 				{participants.map((participant, id) => (
 					<SwiperSlide key={id}>

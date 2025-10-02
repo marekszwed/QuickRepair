@@ -32,39 +32,35 @@ function Header() {
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-					<Typography
+					<S.Logo
 						variant="h4"
 						noWrap
 						component="a"
 						href="#app-bar-with-responsive-menu"
-						sx={{
-							mr: 2,
-							display: { xs: "none", md: "flex" },
-							fontFamily: `"roboto", sans-serif`,
-							fontWeight: 700,
-							letterSpacing: ".2rem",
-							color: "inherit",
-							textDecoration: "none",
-						}}
 					>
 						Quick Repair
-					</Typography>
+					</S.Logo>
 					<Box
+						component="ul"
 						sx={{
 							flexGrow: 1,
 							display: { xs: "none", md: "flex" },
 							justifyContent: "flex-end",
 							mr: "4rem",
+							listStyle: "none",
+							p: 0,
+							m: 0,
 						}}
 					>
 						{pages.map((page) => (
-							<Button
-								key={page}
-								onClick={handleCloseNavMenu}
-								sx={{ my: 1, color: "white", display: "block" }}
-							>
-								<Typography variant="subtitle2">{page}</Typography>
-							</Button>
+							<Box component="li" key={page} sx={{ ml: 2 }}>
+								<Button
+									onClick={handleCloseNavMenu}
+									sx={{ my: 1, color: "white", display: "block" }}
+								>
+									<Typography variant="subtitle2">{page}</Typography>
+								</Button>
+							</Box>
 						))}
 					</Box>
 					<Box
@@ -77,25 +73,6 @@ function Header() {
 						}}
 					>
 						<AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-						<Typography
-							variant="h4"
-							noWrap
-							component="a"
-							href="#app-bar-with-responsive-menu"
-							sx={{
-								mr: 2,
-								display: { xs: "flex", md: "none" },
-
-								flexGrow: 1,
-								fontFamily: `"roboto", sans-serif`,
-								fontWeight: 700,
-								letterSpacing: ".3rem",
-								color: "inherit",
-								textDecoration: "none",
-							}}
-						>
-							Quick Repair
-						</Typography>
 						<IconButton
 							size="large"
 							aria-label="account of current user"

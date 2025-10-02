@@ -2,7 +2,8 @@
 	"Header": {
 		"login": "Log in",
 		"log out": "Log out",
-		"register": "Register"
+		"register": "Register",
+		"services": "Services"
 	},
 	"Reviews": [
 		{
