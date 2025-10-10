@@ -1,6 +1,6 @@
 "use client";
-import * as React from "react";
 import * as S from "./Header.styled";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -12,20 +12,20 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
+interface HeaderProps {
+	onAuthOpen: () => void;
+}
+
 const pages = ["Services", "Log in", "Register"];
 
-function Header() {
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-		null
-	);
+function Header({ onAuthOpen }: HeaderProps) {
+	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
 	};
 
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
+	const handleCloseNavMenu = () => setAnchorElNav(null);
 
 	return (
 		<S.Header position="fixed" color="secondary">
@@ -55,7 +55,10 @@ function Header() {
 						{pages.map((page) => (
 							<Box component="li" key={page} sx={{ ml: 2 }}>
 								<Button
-									onClick={handleCloseNavMenu}
+									onClick={() => {
+										if (page !== "Services") onAuthOpen();
+										handleCloseNavMenu();
+									}}
 									sx={{ my: 1, color: "white", display: "block" }}
 								>
 									<Typography variant="subtitle2">{page}</Typography>
@@ -100,7 +103,13 @@ function Header() {
 							sx={{ display: { xs: "block", md: "none" } }}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
+								<MenuItem
+									key={page}
+									onClick={() => {
+										if (page !== "Services") onAuthOpen();
+										handleCloseNavMenu();
+									}}
+								>
 									<Typography sx={{ textAlign: "center" }}>{page}</Typography>
 								</MenuItem>
 							))}

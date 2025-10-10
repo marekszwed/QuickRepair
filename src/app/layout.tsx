@@ -1,4 +1,4 @@
-import Header from "@/app/_components/common/Header";
+import AppLayout from "@/components/AppLayout";
 import AppThemeProvider from "@/providers/AppThemeProvider";
 
 export default function RootLayout({
@@ -10,8 +10,8 @@ export default function RootLayout({
 		<html lang="pl">
 			<body>
 				<AppThemeProvider>
-					<Header />
-					{children}
+					<AppLayout>{children}</AppLayout>
+					<div id="Modal" />
 				</AppThemeProvider>
 			</body>
 		</html>
