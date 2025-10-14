@@ -1,4 +1,5 @@
 "use client";
+import { MODAL_PORTAL_ID } from "@/constants/domElements";
 import * as S from "./Modal.styled";
 import { ReactNode, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
@@ -14,7 +15,7 @@ function Modal({ onClose, children }: ModalProps) {
 
 	useEffect(() => {
 		setMounted(true);
-		setModalRoot(document.getElementById("Modal"));
+		setModalRoot(document.getElementById(MODAL_PORTAL_ID));
 	}, []);
 
 	if (!mounted || !modalRoot) return null;

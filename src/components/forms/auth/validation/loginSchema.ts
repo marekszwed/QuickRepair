@@ -1,12 +1,8 @@
-import * as yup from "yup";
+import * as z from "zod";
 
-const loginSchema = yup.object({
-	email: yup
-		.string()
-		.email("Invalid email address")
-		.required("Email is required"),
-	password: yup.string().min(6).required("Password id required"),
-	// role: yup.string().oneOf(["customer", "specialist"], "Select account type"),
+const loginSchema = z.object({
+	email: z.email("Invalid email address"),
+	password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
 export default loginSchema;

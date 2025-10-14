@@ -7,3 +7,5 @@ export { default as AuthForm } from "./forms/auth/AuthForm";
 export { default as LoginForm } from "./forms/auth/LoginForm";
 export { default as RegistrationForm } from "./forms/auth/RegistationForm";
 export { default as PrimaryButton } from "./common/Button";
+export { default as InputText } from "./forms/auth/InputText";
+export { default as Radios } from "./forms/auth/Radios";

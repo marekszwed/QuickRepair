@@ -1,19 +1,26 @@
 "use client";
 import * as S from "./AuthForm.styled";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, Tab, Tabs } from "@mui/material";
 import LoginForm from "../LoginForm";
 import RegistrationForm from "../RegistationForm";
+import { useDialogState } from "@/hooks/useDialogState";
+
+enum FormMode {
+	Login = "login",
+	Register = "register",
+}
 
 type FormValues = {
-	mode: "login" | "register";
+	mode: FormMode;
 };
 
+const typedKeys = Object.keys(FormMode) as Array<keyof typeof FormMode>;
+
 function AuthForm() {
-	const [showTabs, setShowTabs] = useState(true);
+	const { isOpen: showTabs, toggle } = useDialogState();
 	const { watch, setValue } = useForm<FormValues>({
-		defaultValues: { mode: "login" },
+		defaultValues: { mode: FormMode.Login },
 	});
 
 	const mode = watch("mode");
@@ -22,22 +29,25 @@ function AuthForm() {
 		_: React.SyntheticEvent,
 		value: "login" | "register"
 	) => {
-		setValue("mode", value);
+		setValue("mode", value as FormMode);
 		console.log("Zmienono tryb na:", value);
+	};
+
+	const formComponents = {
+		[FormMode.Login]: <LoginForm />,
+		[FormMode.Register]: <RegistrationForm />,
 	};
 
 	return (
 		<S.StyledPaper>
 			{showTabs && (
 				<Tabs value={mode} onChange={handleChangeVixibility} centered>
-					<Tab value="login" label="login" />
-					<Tab value="register" label="register" />
+					<Tab value={FormMode.Login} label="login" />
+					<Tab value={FormMode.Register} label="register" />
 				</Tabs>
 			)}
-			<Box sx={{ mt: 2, width: "100%" }}>
-				{mode === "login" ? <LoginForm /> : <RegistrationForm />}
-			</Box>
-			<Button onClick={() => setShowTabs((prev) => !prev)} sx={{ mt: 2 }}>
+			<Box sx={{ mt: 2, width: "100%" }}>{formComponents[mode]}</Box>
+			<Button onClick={toggle} sx={{ mt: 2 }}>
 				{showTabs ? "Ukryj zakładki" : "Pokaż zakładki"}
 			</Button>
 		</S.StyledPaper>

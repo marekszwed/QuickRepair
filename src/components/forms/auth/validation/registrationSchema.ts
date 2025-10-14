@@ -1,20 +1,22 @@
-import * as yup from "yup";
+import { z } from "zod";
 
-const registrationSchema = yup.object({
-	name: yup.string().required("Name is required"),
-	surname: yup.string().required("Surname is required"),
-	email: yup
+const registrationSchema = z.object({
+	name: z.string().min(1, "Name is required"),
+	surname: z.string().min(1, "Surname is required"),
+	email: z.email("Invalid email address"),
+	password: z
 		.string()
-		.email("Invalid email address")
-		.required("Email is required"),
-	password: yup
-		.string()
-		.min(6, "Hasło musi mieć co najmniej 6 znaków")
-		.required("Password id requirede"),
-	role: yup
-		.mixed<"customer" | "specialist">()
-		.oneOf(["customer", "specialist"], "Select role")
-		.required("Role is required"),
+		.min(6, "Password must be at least 6 characters long")
+		.regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+		.regex(/[a-z]/, "Password must contain at least one lowercase letter")
+		.regex(/[0-9]/, "Password must contain at least one number")
+		.regex(
+			/[!@#$%^&*(),.?":{}|<>]/,
+			"Password must contain at least one special character"
+		),
+	role: z.enum(["customer", "specialist"]).refine((val) => !!val, {
+		message: "Role is required",
+	}),
 });
 
 export default registrationSchema;
