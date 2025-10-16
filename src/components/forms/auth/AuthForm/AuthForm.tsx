@@ -25,7 +25,7 @@ function AuthForm() {
 
 	const mode = watch("mode");
 
-	const handleChangeVixibility = (
+	const handleChangeVisibility = (
 		_: React.SyntheticEvent,
 		value: "login" | "register"
 	) => {
@@ -41,7 +41,7 @@ function AuthForm() {
 	return (
 		<S.StyledPaper>
 			{showTabs && (
-				<Tabs value={mode} onChange={handleChangeVixibility} centered>
+				<Tabs value={mode} onChange={handleChangeVisibility} centered>
 					<Tab value={FormMode.Login} label="login" />
 					<Tab value={FormMode.Register} label="register" />
 				</Tabs>
