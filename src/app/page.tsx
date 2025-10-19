@@ -1,7 +1,7 @@
 "use client";
 import * as S from "./styled";
-import HeroImage from "./_components/HeroImage/HeroImage";
-import OpinionCarousel from "./_components/OpinionCarousel";
+import HeroImage from "@/components/HeroImage";
+import OpinionCarousel from "@/components/OpinionCarousel";
 
 function LandingPage() {
 	return (

@@ -1,5 +1,6 @@
-import Header from "@/app/_components/common/Header";
+import AppLayout from "@/components/AppLayout";
 import AppThemeProvider from "@/providers/AppThemeProvider";
+import { MODAL_PORTAL_ID } from "@/constants/domElements";
 
 export default function RootLayout({
 	children,
@@ -10,8 +11,8 @@ export default function RootLayout({
 		<html lang="pl">
 			<body>
 				<AppThemeProvider>
-					<Header />
-					{children}
+					<AppLayout>{children}</AppLayout>
+					<div id={MODAL_PORTAL_ID} />
 				</AppThemeProvider>
 			</body>
 		</html>

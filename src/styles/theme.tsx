@@ -12,7 +12,6 @@ declare module "@mui/material/styles" {
 
 let theme = createTheme({
 	palette: {
-		primary: { main: "#2C73D2" },
 		blue100: "",
 	},
 });
