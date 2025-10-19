@@ -1,40 +1,22 @@
 "use client";
 import * as S from "./Header.styled";
-import { useState } from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useDialogState } from "@/hooks/useDialogState";
 import Modal from "../common/Modal";
 import AuthForm from "../forms/auth/AuthForm";
-
-enum Pages {
-	Services = "Services",
-	Login = "Log in",
-}
-
-const typedKeys = Object.keys(Pages) as Array<keyof typeof Pages>;
+import MobileMenu from "./components/MobileMenu";
+import { Pages, typedKeys } from "@/constants/constants";
 
 function Header() {
-	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 	const modalState = useDialogState();
 
-	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElNav(event.currentTarget);
-	};
-
-	const handleCloseNavMenu = () => setAnchorElNav(null);
-
-	const handleMenuItemClick = (page: Pages) => () => {
+	const handleMenuItemClick = (page: string) => () => {
 		if (page !== Pages.Services) modalState.open();
-		handleCloseNavMenu();
 	};
 
 	return (
@@ -43,12 +25,7 @@ function Header() {
 				<Container maxWidth="xl">
 					<Toolbar disableGutters>
 						<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-						<S.Logo
-							variant="h4"
-							noWrap
-							component="a"
-							href="#app-bar-with-responsive-menu"
-						>
+						<S.Logo variant="h4" noWrap component="a" href="/">
 							Quick Repair
 						</S.Logo>
 						<Box
@@ -74,52 +51,10 @@ function Header() {
 								</Box>
 							))}
 						</Box>
-						<Box
-							sx={{
-								flexGrow: 1,
-								display: { xs: "flex", md: "none" },
-								justifyContent: "space-between",
-								alignItems: "center",
-								width: "100%",
-							}}
-						>
-							<AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-							<IconButton
-								size="large"
-								aria-label="account of current user"
-								aria-controls="menu-appbar"
-								aria-haspopup="true"
-								onClick={handleOpenNavMenu}
-								color="inherit"
-							>
-								<MenuIcon />
-							</IconButton>
-							<Menu
-								id="menu-appbar"
-								anchorEl={anchorElNav}
-								anchorOrigin={{
-									vertical: "bottom",
-									horizontal: "right",
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								open={Boolean(anchorElNav)}
-								onClose={handleCloseNavMenu}
-								sx={{ display: { xs: "block", md: "none" } }}
-							>
-								{typedKeys.map((page) => (
-									<MenuItem
-										key={page}
-										onClick={handleMenuItemClick(Pages[page])}
-									>
-										<Typography sx={{ textAlign: "center" }}>{page}</Typography>
-									</MenuItem>
-								))}
-							</Menu>
-						</Box>
+						<MobileMenu
+							onItemClick={handleMenuItemClick}
+							typedKeys={typedKeys}
+						/>
 					</Toolbar>
 				</Container>
 			</S.Header>

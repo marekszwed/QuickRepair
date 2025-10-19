@@ -1,6 +1,7 @@
+import { Roles } from "@/constants/constants";
 import { z } from "zod";
 
-const registrationSchema = z.object({
+export const registrationSchema = z.object({
 	name: z.string().min(1, "Name is required"),
 	surname: z.string().min(1, "Surname is required"),
 	email: z.email("Invalid email address"),
@@ -14,9 +15,22 @@ const registrationSchema = z.object({
 			/[!@#$%^&*(),.?":{}|<>]/,
 			"Password must contain at least one special character"
 		),
-	role: z.enum(["customer", "specialist"]).refine((val) => !!val, {
-		message: "Role is required",
-	}),
+	role: z.enum(Roles, { message: "Role is required" }),
 });
 
-export default registrationSchema;
+export const passwordCheckSchema = z.object({
+	length_ok: z.boolean(),
+	upper_ok: z.boolean(),
+	lower_ok: z.boolean(),
+	digit_ok: z.boolean(),
+	special_ok: z.boolean(),
+});
+
+export const checkPassword = (password: string) =>
+	passwordCheckSchema.parse({
+		length_ok: password.length >= 8,
+		upper_ok: /[A-Z]/.test(password),
+		lower_ok: /[a-z]/.test(password),
+		digit_ok: /[0-9]/.test(password),
+		special_ok: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+	});
