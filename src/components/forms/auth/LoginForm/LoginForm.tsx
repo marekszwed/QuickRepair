@@ -7,6 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import loginSchema from "../validation/loginSchema";
 import InputText from "../InputText";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthMutation } from "@/hooks/useAuthMutation";
 
 export type LoginFormType = {
 	email: string;
@@ -20,9 +21,14 @@ function LoginForm() {
 		defaultValues: { email: "", password: "" },
 	});
 
+	const loginMutation = useAuthMutation<LoginFormType>(
+		"/api/auth/login",
+		"Registration completed successfully"
+	);
+
 	const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-	const onSubmit = (data: LoginFormType) => console.log(data);
+	const onSubmit = (data: LoginFormType) => loginMutation.mutate(data);
 
 	return (
 		<FormProvider {...formBag}>
