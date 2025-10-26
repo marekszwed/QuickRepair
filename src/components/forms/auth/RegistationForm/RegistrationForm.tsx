@@ -14,6 +14,12 @@ import {
 } from "../validation/registrationSchema";
 import { useAuthMutation } from "@/hooks/useAuthMutation";
 
+type RegistrationResponse = {
+	id: string;
+	email: string;
+	role: Roles;
+};
+
 export type RegistrationFormType = LoginFormType & {
 	name: string;
 	surname: string;
@@ -36,10 +42,12 @@ function RegistrationForm() {
 		defaultValues: initialValues,
 	});
 
-	const registerMutation = useAuthMutation<RegistrationFormType>(
-		"/api/users",
-		"Registration completed successfully"
-	);
+	const registerMutation = useAuthMutation<
+		RegistrationFormType,
+		RegistrationResponse
+	>("/api/users", {
+		successMessage: "Registration complete successfully",
+	});
 
 	const password = useWatch({
 		control: formBag.control,
