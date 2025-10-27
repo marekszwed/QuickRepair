@@ -12,8 +12,15 @@ import {
 	checkPassword,
 	registrationSchema,
 } from "../validation/registrationSchema";
+import { useAuthMutation } from "@/hooks/useAuthMutation";
 
-type RegistrationFormType = LoginFormType & {
+type RegistrationResponse = {
+	id: string;
+	email: string;
+	role: Roles;
+};
+
+export type RegistrationFormType = LoginFormType & {
 	name: string;
 	surname: string;
 	role: Roles;
@@ -35,6 +42,13 @@ function RegistrationForm() {
 		defaultValues: initialValues,
 	});
 
+	const registerMutation = useAuthMutation<
+		RegistrationFormType,
+		RegistrationResponse
+	>("/api/users", {
+		successMessage: "Registration complete successfully",
+	});
+
 	const password = useWatch({
 		control: formBag.control,
 		name: "password",
@@ -45,7 +59,9 @@ function RegistrationForm() {
 
 	const passwordChecks = useMemo(() => checkPassword(password), [password]);
 
-	const onSubmit = (data: unknown) => console.log(data);
+	const onSubmit = (data: RegistrationFormType) => {
+		registerMutation.mutate(data);
+	};
 
 	return (
 		<FormProvider {...formBag}>
