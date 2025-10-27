@@ -9,6 +9,14 @@ import InputText from "../InputText";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthMutation } from "@/hooks/useAuthMutation";
 
+type LoginResponse = {
+	user: {
+		email: string;
+		name: string;
+	};
+	message: string;
+};
+
 export type LoginFormType = {
 	email: string;
 	password: string;
@@ -21,9 +29,11 @@ function LoginForm() {
 		defaultValues: { email: "", password: "" },
 	});
 
-	const loginMutation = useAuthMutation<LoginFormType>(
+	const loginMutation = useAuthMutation<LoginFormType, LoginResponse>(
 		"/api/auth/login",
-		"Registration completed successfully"
+		{
+			successMessage: "Login completed successfully",
+		}
 	);
 
 	const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
