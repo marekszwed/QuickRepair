@@ -5,7 +5,7 @@ type ButtonType = ButtonProps & {
 	text: string;
 };
 
-function PrimaryButton({ text, ...props }: ButtonType) {
+function PrimaryButton({ text, sx, ...props }: ButtonType) {
 	return (
 		<Button
 			sx={{
@@ -13,7 +13,8 @@ function PrimaryButton({ text, ...props }: ButtonType) {
 				paddingInline: 3,
 				backgroundColor: theme.palette.primary.main,
 				color: theme.palette.common.white,
-				...props,
+				borderRadius: 3,
+				...sx,
 			}}
 			{...props}
 		>

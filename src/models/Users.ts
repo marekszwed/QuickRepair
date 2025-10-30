@@ -1,4 +1,3 @@
-import { Roles } from "@/constants/constants";
 import { model, models, Schema } from "mongoose";
 
 const userSchema = new Schema(
@@ -7,7 +6,6 @@ const userSchema = new Schema(
 		surname: { type: String, required: true },
 		email: { type: String, required: true },
 		password: { type: String, required: true },
-		role: { type: String, enum: Object.values(Roles), default: Roles.Customer },
 	},
 	{
 		timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },

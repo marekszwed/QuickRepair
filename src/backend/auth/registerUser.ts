@@ -25,7 +25,7 @@ export async function postRegisterUser(request: Request) {
 			);
 		}
 
-		const { name, surname, email, password, role } = await parsed.data;
+		const { name, surname, email, password } = await parsed.data;
 
 		const existing = await User.findOne({ email });
 		if (existing) {
@@ -42,13 +42,12 @@ export async function postRegisterUser(request: Request) {
 			surname,
 			email,
 			password: hiddenPassword,
-			role,
 		});
 
 		const token = createToken({ id: newUser._id, email: newUser.email });
 
 		const res = NextResponse.json(
-			{ id: newUser._id, email: newUser.email, role: newUser.role },
+			{ id: newUser._id, email: newUser.email },
 			{ status: 201 }
 		);
 		setAuthToken(res, token);
