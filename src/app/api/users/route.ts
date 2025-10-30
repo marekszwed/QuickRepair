@@ -1,8 +1,8 @@
 import { postRegisterUser } from "@/backend/auth/registerUser";
-import { getRegisterUser } from "@/backend/auth/getRegisterUsers";
+import { getAllUsers } from "@/backend/auth/getAllUsers";
 
 export async function GET() {
-	return getRegisterUser();
+	return getAllUsers();
 }
 
 export async function POST(request: Request) {

@@ -5,5 +5,5 @@ export const Hero = styled("div")(({ theme }) => ({
 	display: "flex",
 	height: "100%",
 	width: "100%",
-	backgroundColor: theme.palette.secondary.light,
+	backgroundColor: theme.palette.common.white,
 }));

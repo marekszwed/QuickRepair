@@ -11,8 +11,14 @@ declare module "@mui/material/styles" {
 }
 
 let theme = createTheme({
-	palette: {
-		blue100: "",
+	components: {
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					borderRadius: 3,
+				},
+			},
+		},
 	},
 });
 

@@ -1,4 +1,3 @@
-import { Roles } from "@/constants/constants";
 import { z } from "zod";
 
 export const registrationSchema = z.object({
@@ -15,7 +14,6 @@ export const registrationSchema = z.object({
 			/[!@#$%^&*(),.?":{}|<>]/,
 			"Password must contain at least one special character"
 		),
-	role: z.enum(Roles, { message: "Role is required" }),
 });
 
 export const passwordCheckSchema = z.object({
