@@ -11,6 +11,7 @@ import AuthForm from "../forms/auth/AuthForm";
 import MobileMenu from "./components/MobileMenu";
 import { Pages, typedKeys } from "@/constants/constants";
 import PrimaryButton from "../common/Button";
+import Link from "next/link";
 
 function Header() {
 	const modalState = useDialogState();
@@ -34,8 +35,8 @@ function Header() {
 								mr: 1,
 							}}
 						/>
-						<S.Logo variant="h4" noWrap component="a" href="/">
-							QuickRepair
+						<S.Logo>
+							<Link href="/">QuickRepair</Link>
 						</S.Logo>
 						<Box
 							component="ul"
@@ -49,26 +50,19 @@ function Header() {
 								m: 0,
 							}}
 						>
-							{typedKeys.map((page) => (
-								<Box component="li" key={page} sx={{ ml: 2 }}>
-									<PrimaryButton
-										onClick={handleMenuItemClick(Pages[page])}
-										text={Pages[page]}
-										sx={{
-											my: 1,
-											color:
-												Pages[page] === Pages.GetStarted
-													? theme.palette.common.white
-													: theme.palette.common.black,
-											backgroundColor:
-												Pages[page] === Pages.GetStarted
-													? theme.palette.primary.main
-													: theme.palette.common.white,
-											borderRadius: 3,
-										}}
-									></PrimaryButton>
-								</Box>
-							))}
+							{typedKeys.map((page) => {
+								const isGetStarted = Pages[page] === Pages.GetStarted;
+								return (
+									<Box component="li" key={page} sx={{ ml: 2 }}>
+										<PrimaryButton
+											onClick={handleMenuItemClick(Pages[page])}
+											text={Pages[page]}
+											sx={{ my: 1 }}
+											colorVariant={isGetStarted ? "primary" : "second"}
+										/>
+									</Box>
+								);
+							})}
 						</Box>
 						<MobileMenu
 							onItemClick={handleMenuItemClick}

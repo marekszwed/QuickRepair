@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
-import { Typography, TypographyProps } from "@mui/material";
+import { TypographyProps } from "@mui/material";
 
 export const Header = styled(AppBar)(({ theme }) => ({
 	position: "fixed",
@@ -9,18 +9,23 @@ export const Header = styled(AppBar)(({ theme }) => ({
 
 type LogoProps = TypographyProps<"a">;
 
-export const Logo = styled(Typography)<LogoProps>(({ theme }) => ({
+export const Logo = styled("h1")(({ theme }) => ({
 	marginRight: theme.spacing(2),
 	fontWeight: 700,
 	fontFamily: `"roboto", sans-serif`,
-	color: theme.palette.common.black,
+	fontSize: theme.typography.h4.fontSize,
 	textDecoration: "none",
-	cursor: "pointer",
 	letterSpacing: ".2rem",
 
 	[theme.breakpoints.down("md")]: {
 		letterSpacing: ".3rem",
 		flexGrow: 1,
 		overflow: "visible",
+	},
+
+	"& a": {
+		textDecoration: "none",
+		color: theme.palette.common.black,
+		cursor: "pointer",
 	},
 }));
