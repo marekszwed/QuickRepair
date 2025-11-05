@@ -1,19 +1,26 @@
-import theme from "@/styles/theme";
 import { Button, ButtonProps } from "@mui/material";
+import { buttonVariants } from "./Button.styled";
 
-type ButtonType = ButtonProps & {
+type ColorVariant = "primary" | "second" | "third";
+
+type ButtonType = {
 	text: string;
-};
+	colorVariant?: ColorVariant;
+} & Omit<ButtonProps, "color">;
 
-function PrimaryButton({ text, sx, ...props }: ButtonType) {
+function PrimaryButton({
+	text,
+	colorVariant = "primary",
+	sx,
+	...props
+}: ButtonType) {
 	return (
 		<Button
 			sx={{
 				mt: 3,
 				paddingInline: 3,
-				backgroundColor: theme.palette.primary.main,
-				color: theme.palette.common.white,
 				borderRadius: 3,
+				...buttonVariants[colorVariant],
 				...sx,
 			}}
 			{...props}
