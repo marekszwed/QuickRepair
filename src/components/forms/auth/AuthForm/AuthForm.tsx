@@ -6,6 +6,10 @@ import LoginForm from "../LoginForm";
 import RegistrationForm from "../RegistationForm";
 import { useDialogState } from "@/hooks/useDialogState";
 
+type AuthFormProps = {
+	onSuccess: () => void;
+};
+
 enum FormMode {
 	Login = "login",
 	Register = "register",
@@ -17,7 +21,7 @@ type FormValues = {
 
 const typedKeys = Object.keys(FormMode) as Array<keyof typeof FormMode>;
 
-function AuthForm() {
+function AuthForm({ onSuccess }: AuthFormProps) {
 	const { isOpen: showTabs, toggle } = useDialogState();
 	const { watch, setValue } = useForm<FormValues>({
 		defaultValues: { mode: FormMode.Login },
@@ -34,13 +38,13 @@ function AuthForm() {
 	};
 
 	const formComponents = {
-		[FormMode.Login]: <LoginForm />,
-		[FormMode.Register]: <RegistrationForm />,
+		[FormMode.Login]: <LoginForm onSuccess={onSuccess} />,
+		[FormMode.Register]: <RegistrationForm onSuccess={onSuccess} />,
 	};
 
 	return (
 		<S.StyledPaper>
-			{showTabs && (
+			{!showTabs && (
 				<Tabs value={mode} onChange={handleChangeVisibility} centered>
 					<Tab value={FormMode.Login} label="login" />
 					<Tab value={FormMode.Register} label="register" />
@@ -48,7 +52,7 @@ function AuthForm() {
 			)}
 			<Box sx={{ mt: 2, width: "100%" }}>{formComponents[mode]}</Box>
 			<Button onClick={toggle} sx={{ mt: 2 }}>
-				{showTabs ? "Ukryj zakładki" : "Pokaż zakładki"}
+				{showTabs ? "Show tabs" : "Hide tabs"}
 			</Button>
 		</S.StyledPaper>
 	);

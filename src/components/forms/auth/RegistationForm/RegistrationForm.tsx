@@ -5,25 +5,28 @@ import { Box } from "@mui/material";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import Button from "@/components/common/Button";
 import { LoginFormType } from "../LoginForm/LoginForm";
-import { InputText, PasswordLiveCheck, Radios } from "@/components";
+import { InputText, PasswordLiveCheck } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Roles } from "@/constants/constants";
 import {
 	checkPassword,
 	registrationSchema,
 } from "../validation/registrationSchema";
 import { useAuthMutation } from "@/hooks/useAuthMutation";
+import { useRouter } from "next/navigation";
+import { Routes } from "@/routes/routes";
+
+type RegistrationFormProps = {
+	onSuccess?: () => void;
+};
 
 type RegistrationResponse = {
 	id: string;
 	email: string;
-	role: Roles;
 };
 
 export type RegistrationFormType = LoginFormType & {
 	name: string;
 	surname: string;
-	role: Roles;
 };
 
 const initialValues = {
@@ -31,10 +34,10 @@ const initialValues = {
 	surname: "",
 	email: "",
 	password: "",
-	role: Roles.Customer,
 };
 
-function RegistrationForm() {
+function RegistrationForm({ onSuccess }: RegistrationFormProps) {
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const formBag = useForm<RegistrationFormType>({
 		resolver: zodResolver(registrationSchema),
@@ -47,6 +50,11 @@ function RegistrationForm() {
 		RegistrationResponse
 	>("/api/users", {
 		successMessage: "Registration complete successfully",
+		onSuccess: () => {
+			router.push(Routes.clientPanel);
+			alert("Registration complete successfuly");
+			onSuccess?.();
+		},
 	});
 
 	const password = useWatch({
@@ -59,9 +67,8 @@ function RegistrationForm() {
 
 	const passwordChecks = useMemo(() => checkPassword(password), [password]);
 
-	const onSubmit = (data: RegistrationFormType) => {
+	const onSubmit = (data: RegistrationFormType) =>
 		registerMutation.mutate(data);
-	};
 
 	return (
 		<FormProvider {...formBag}>
@@ -70,13 +77,6 @@ function RegistrationForm() {
 				onSubmit={formBag.handleSubmit(onSubmit)}
 				sx={{ ...flexColumnCenter, mx: 2, gap: 2 }}
 			>
-				<Radios
-					name="role"
-					options={[
-						{ label: Roles.Customer, value: Roles.Customer },
-						{ label: Roles.Specialist, value: Roles.Specialist },
-					]}
-				/>
 				<InputText id="name" name="name" label="name" type="" />
 				<InputText id="surname" name="surname" label="surname" type="" />
 				<InputText id="email" name="email" label="email" type="email" />

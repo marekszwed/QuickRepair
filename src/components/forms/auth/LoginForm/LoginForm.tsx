@@ -8,6 +8,12 @@ import loginSchema from "../validation/loginSchema";
 import InputText from "../InputText";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthMutation } from "@/hooks/useAuthMutation";
+import { useRouter } from "next/navigation";
+import { Routes } from "@/routes/routes";
+
+type LoginFormProps = {
+	onSuccess?: () => void;
+};
 
 type LoginResponse = {
 	user: {
@@ -22,7 +28,8 @@ export type LoginFormType = {
 	password: string;
 };
 
-function LoginForm() {
+function LoginForm({ onSuccess }: LoginFormProps) {
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const formBag = useForm<LoginFormType>({
 		resolver: zodResolver(loginSchema),
@@ -33,12 +40,17 @@ function LoginForm() {
 		"/api/auth/login",
 		{
 			successMessage: "Login completed successfully",
+			onSuccess: () => {
+				router.push(Routes.clientPanel);
+				alert("Login successful");
+				onSuccess?.();
+			},
 		}
 	);
 
 	const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-	const onSubmit = (data: LoginFormType) => loginMutation.mutate(data);
+	const onSubmit = (data: LoginFormType) => loginMutation.mutateAsync(data);
 
 	return (
 		<FormProvider {...formBag}>

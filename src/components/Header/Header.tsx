@@ -1,16 +1,17 @@
 "use client";
 import * as S from "./Header.styled";
+import theme from "@/styles/theme";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useDialogState } from "@/hooks/useDialogState";
 import Modal from "../common/Modal";
 import AuthForm from "../forms/auth/AuthForm";
 import MobileMenu from "./components/MobileMenu";
 import { Pages, typedKeys } from "@/constants/constants";
+import PrimaryButton from "../common/Button";
+import Link from "next/link";
 
 function Header() {
 	const modalState = useDialogState();
@@ -24,9 +25,18 @@ function Header() {
 			<S.Header position="fixed" color="secondary">
 				<Container maxWidth="xl">
 					<Toolbar disableGutters>
-						<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-						<S.Logo variant="h4" noWrap component="a" href="/">
-							Quick Repair
+						<AdbIcon
+							sx={{
+								display: {
+									xs: "none",
+									md: "flex",
+									color: theme.palette.primary.main,
+								},
+								mr: 1,
+							}}
+						/>
+						<S.Logo>
+							<Link href="/">QuickRepair</Link>
 						</S.Logo>
 						<Box
 							component="ul"
@@ -40,16 +50,19 @@ function Header() {
 								m: 0,
 							}}
 						>
-							{typedKeys.map((page) => (
-								<Box component="li" key={page} sx={{ ml: 2 }}>
-									<Button
-										onClick={handleMenuItemClick(Pages[page])}
-										sx={{ my: 1, color: "white", display: "block" }}
-									>
-										<Typography variant="subtitle2">{page}</Typography>
-									</Button>
-								</Box>
-							))}
+							{typedKeys.map((page) => {
+								const isGetStarted = Pages[page] === Pages.GetStarted;
+								return (
+									<Box component="li" key={page} sx={{ ml: 2 }}>
+										<PrimaryButton
+											onClick={handleMenuItemClick(Pages[page])}
+											text={Pages[page]}
+											sx={{ my: 1 }}
+											colorVariant={isGetStarted ? "primary" : "second"}
+										/>
+									</Box>
+								);
+							})}
 						</Box>
 						<MobileMenu
 							onItemClick={handleMenuItemClick}
@@ -60,7 +73,7 @@ function Header() {
 			</S.Header>
 			{modalState.isOpen && (
 				<Modal onClose={modalState.close}>
-					<AuthForm />
+					<AuthForm onSuccess={modalState.close} />
 				</Modal>
 			)}
 		</>

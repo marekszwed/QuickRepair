@@ -1,6 +1,6 @@
 export enum Pages {
 	Services = "Services",
-	Login = "Log in",
+	GetStarted = "Get started",
 }
 
 export const typedKeys = Object.keys(Pages) as Array<keyof typeof Pages>;
