@@ -1,3 +1,4 @@
+"use client"
 import { Pages } from "@/constants/constants";
 import { Box, IconButton, MenuItem, Typography } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";

@@ -3,7 +3,8 @@
 		"login": "Log in",
 		"log out": "Log out",
 		"register": "Register",
-		"services": "Services"
+		"services": "Services",
+		"get started": "Get started"
 	},
 	"Reviews": [
 		{
@@ -35,6 +36,87 @@
 		},
 		{
 			"review": "I’m very satisfied – finally, it’s easy and fast to order a repair."
+		}
+	],
+	"Professions": [
+		{
+			"category": "Home Services",
+			"professions": [
+				"Plumber",
+				"Electrician",
+				"Handyman",
+				"Carpenter",
+				"Locksmith"
+			]
+		},
+		{
+			"category": "Construction & Renovation",
+			"professions": ["Bricklayer", "Plasterer", "Tiler", "Roofer", "Joiner"]
+		},
+		{
+			"category": "Interior Finishing",
+			"professions": [
+				"Painter",
+				"Wallpaper Installer",
+				"Furniture Assembler",
+				"Glazier",
+				"Floor Layer"
+			]
+		},
+		{
+			"category": "Outdoor & Garden",
+			"professions": [
+				"Gardener",
+				"Paver",
+				"Fence Installer",
+				"Landscape Designer"
+			]
+		},
+		{
+			"category": "Automotive Services",
+			"professions": [
+				"Mechanic",
+				"Car Painter",
+				"Panel Beater",
+				"Auto Electrician"
+			]
+		},
+		{
+			"category": "Cleaning & Maintenance",
+			"professions": [
+				"Cleaner",
+				"Window Cleaner",
+				"Upholstery Cleaner",
+				"Building Maintenance Technician"
+			]
+		},
+		{
+			"category": "Technology & Installations",
+			"professions": [
+				"IT Technician",
+				"Solar Panel Installer",
+				"Alarm System Installer",
+				"Air Conditioning Specialist"
+			]
+		},
+		{
+			"category": "Other Services",
+			"professions": [
+				"General Contractor",
+				"Mover",
+				"Welder",
+				"Machine Operator"
+			]
+		},
+		{
+			"category": "Appliance Repair",
+			"professions": [
+				"Washing Machine Technician",
+				"Refrigerator Repair Specialist",
+				"Oven & Stove Repairman",
+				"Dishwasher Technician",
+				"TV & Audio Equipment Repairer"
+			]
 		}
 	]
 }

@@ -14,6 +14,7 @@ import {
 import { useAuthMutation } from "@/hooks/useAuthMutation";
 import { useRouter } from "next/navigation";
 import { Routes } from "@/routes/routes";
+import { useDialogState } from "@/hooks/useDialogState";
 
 type RegistrationFormProps = {
 	onSuccess?: () => void;
@@ -38,6 +39,7 @@ const initialValues = {
 
 function RegistrationForm({ onSuccess }: RegistrationFormProps) {
 	const router = useRouter();
+	const closeForm = useDialogState();
 	const [showPassword, setShowPassword] = useState(false);
 	const formBag = useForm<RegistrationFormType>({
 		resolver: zodResolver(registrationSchema),
@@ -51,7 +53,8 @@ function RegistrationForm({ onSuccess }: RegistrationFormProps) {
 	>("/api/users", {
 		successMessage: "Registration complete successfully",
 		onSuccess: () => {
-			router.push(Routes.clientPanel);
+			closeForm.close();
+			router.push(Routes.rolepage);
 			alert("Registration complete successfuly");
 			onSuccess?.();
 		},
@@ -67,8 +70,9 @@ function RegistrationForm({ onSuccess }: RegistrationFormProps) {
 
 	const passwordChecks = useMemo(() => checkPassword(password), [password]);
 
-	const onSubmit = (data: RegistrationFormType) =>
+	const onSubmit = (data: RegistrationFormType) => {
 		registerMutation.mutate(data);
+	};
 
 	return (
 		<FormProvider {...formBag}>

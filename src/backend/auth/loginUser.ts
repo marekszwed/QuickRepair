@@ -27,7 +27,7 @@ export async function postLoginUser(req: Request) {
 
 		const { email, password } = parsed.data;
 
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ email }).select("+password");
 		if (!user)
 			return NextResponse.json(
 				{ message: "Incorrect email or password" },
@@ -49,6 +49,6 @@ export async function postLoginUser(req: Request) {
 		setAuthToken(response, token);
 		return response;
 	} catch (error: unknown) {
-		generateErrorResponse(error, "Login failed");
+		return generateErrorResponse(error, "Login failed");
 	}
 }

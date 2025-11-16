@@ -1,70 +1,37 @@
 "use client";
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { createTheme } from "@mui/material/styles";
-import { AppProvider } from "@toolpad/core/AppProvider";
-import { DashboardLayout } from "@toolpad/core/DashboardLayout";
-import { useDemoRouter } from "@toolpad/core/internal";
-import { navigation } from "./navigation/navigation";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Routes } from "@/routes/routes";
+import SpecialistDahboardContent from "@/components/dashboard/SpecialistDashboardContent";
+import CustomerDashboardContent from "@/components/dashboard/CustomerDashboardContent";
+import ClientDashboardLayout from "@/components/dashboard/ClientDashboardLayout/ClientDashboardLayout";
 
+function ClientPanelRootLayout() {
+	const [role, setRole] = useState<string | null>(null);
 
-type Pathname = {
-	pathname: string
-}
+	useEffect(() => {
+		const checkRole = async () => {
+			try {
+				const { data } = await axios.get("/api/auth/set-role");
+				console.log("Pobrana rola:", data.role);
+				setRole(data.role);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		checkRole();
+	}, []);
 
-const demoTheme = createTheme({
-	cssVariables: {
-		colorSchemeSelector: "data-toolpad-color-scheme",
-	},
-	colorSchemes: { light: true, dark: true },
-	breakpoints: {
-		values: {
-			xs: 0,
-			sm: 600,
-			md: 600,
-			lg: 1200,
-			xl: 1536,
-		},
-	},
-});
+	if (!role) return <p>Loading...</p>;
 
-function DemoPageContent({ pathname }: Pathname) {
+	const Content =
+		role === "customer" ? CustomerDashboardContent : SpecialistDahboardContent;
+
 	return (
-		<Box
-			sx={{
-				py: 4,
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				textAlign: "center",
-			}}
-		>
-			<Typography>Dashboard content for {pathname}</Typography>
-		</Box>
+		<ClientDashboardLayout pathname={Routes.clientPanel}>
+			<Content />
+		</ClientDashboardLayout>
 	);
 }
 
-function DashboardLayoutBranding() {
-	const router = useDemoRouter("/dashboard");
-
-	return (
-		<AppProvider
-			navigation={navigation}
-			branding={{
-				logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
-				title: "MUI",
-				homeUrl: "/toolpad/core/introduction",
-			}}
-			router={router}
-			theme={demoTheme}
-			
-		>
-			<DashboardLayout>
-				<DemoPageContent pathname={router.pathname} />
-			</DashboardLayout>
-		</AppProvider>
-	);
-}
-
-export default DashboardLayoutBranding;
+export default ClientPanelRootLayout;
