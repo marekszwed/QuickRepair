@@ -1,37 +1,36 @@
 "use client";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { Routes } from "@/routes/routes";
-import SpecialistDahboardContent from "@/components/dashboard/SpecialistDashboardContent";
-import CustomerDashboardContent from "@/components/dashboard/CustomerDashboardContent";
-import ClientDashboardLayout from "@/components/dashboard/ClientDashboardLayout/ClientDashboardLayout";
+import { useQuery } from "@tanstack/react-query";
+import { LoadingCircle } from "@/components";
+import { useRouter } from "next/navigation";
+import { Roles } from "@/constants/constants";
+import { useEffect } from "react";
 
 function ClientPanelRootLayout() {
-	const [role, setRole] = useState<string | null>(null);
+	const router = useRouter();
+	const {
+		data: role,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ["user-role"],
+		queryFn: async () => {
+			const { data } = await axios.get("/api/auth/role");
+			return data.role;
+		},
+	});
 
 	useEffect(() => {
-		const checkRole = async () => {
-			try {
-				const { data } = await axios.get("/api/auth/set-role");
-				console.log("Pobrana rola:", data.role);
-				setRole(data.role);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		checkRole();
-	}, []);
+		if (!isLoading) {
+			if (role === Roles.Customer) router.replace(Routes.customerPanel);
+			if (role === Roles.Specialist) router.replace(Routes.specialistPanel);
+			if (!role) router.replace(Routes.rolepage);
+		}
+	}, [role, isLoading, router]);
 
-	if (!role) return <p>Loading...</p>;
-
-	const Content =
-		role === "customer" ? CustomerDashboardContent : SpecialistDahboardContent;
-
-	return (
-		<ClientDashboardLayout pathname={Routes.clientPanel}>
-			<Content />
-		</ClientDashboardLayout>
-	);
+	if (isLoading) return <LoadingCircle />;
+	if (error) return console.error(error);
 }
 
 export default ClientPanelRootLayout;

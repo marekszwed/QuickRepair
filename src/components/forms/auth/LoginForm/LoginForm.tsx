@@ -43,7 +43,7 @@ function LoginForm({ onSuccess }: LoginFormProps) {
 			successMessage: "Login completed successfully",
 			onSuccess: async () => {
 				try {
-					const { data } = await axios.get("/api/auth/set-role");
+					const { data } = await axios.get("/api/auth/role");
 
 					if (!data.user || !data.role) {
 						alert("Nie udało się pobrać roli użytkownika");

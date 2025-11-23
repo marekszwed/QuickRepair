@@ -1,24 +1,21 @@
 "use client";
+import { RadioType } from "@/types/radiotype";
 import * as S from "./styled";
 
-type RadioType = {
-	name: string;
-	options: { label: string; value: string }[];
-	onChange: (value: string) => void;
-};
-
-function Radios({ name, options, onChange }: RadioType) {
+function Radios({ name, options, selected, onChange }: RadioType) {
 	return (
 		<S.RadioBox>
-			{options.map((opt) => (
-				<label key={opt.value}>
+			{options.map(({ id, label, value }) => (
+				<label key={id} htmlFor={id}>
 					<input
 						type="radio"
 						name={name}
-						value={opt.value}
-						onChange={() => onChange?.(opt.value)}
+						id={id}
+						value={value}
+						checked={selected === value}
+						onChange={() => onChange(value)}
 					/>
-					{opt.label}
+					{label}
 				</label>
 			))}
 		</S.RadioBox>
