@@ -27,5 +27,6 @@ export function setAuthToken(res: NextResponse, token: string) {
 }
 
 export function deleteToken(res: NextResponse, token: string) {
-	res.cookies.delete({ name: "authToken", path: "/" });
+	res.cookies.delete({ name: "authToken", path: "/"});
 }
+

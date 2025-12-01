@@ -15,3 +15,4 @@ export { default as ProfessionGrid } from "./ProfessionGrid";
 export { default as Contractors } from "./Contractors";
 export { default as ClientDashboardLayout } from "./dashboard/ClientDashboardLayout";
 export { default as LoadingCircle } from "./common/LoadingCIrcle";
+export { default as LogButton } from "./Header/components/LogButton";
