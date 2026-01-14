@@ -9,7 +9,7 @@ type UpdateRolePayload = {
 export function useUpdateRole() {
 	return useMutation({
 		mutationFn: async ({ role }: UpdateRolePayload) => {
-			const res = await axios.patch("/api/auth/set-role", { role });
+			const res = await axios.patch("/api/auth/role", { role });
 			return res.data;
 		},
 	});

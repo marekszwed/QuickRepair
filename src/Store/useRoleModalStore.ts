@@ -4,9 +4,9 @@ import { Roles } from "@/constants/constants";
 
 interface RoleModalState {
 	isOpen: boolean;
-	role: Roles.Customer | Roles.Specialist | null;
+	role: Roles | null
 	setOpen: (open: boolean) => void;
-	setRole: (role: Roles.Customer | Roles.Specialist) => void;
+	setRole: (role: Roles) => void;
 }
 
 export const useRoleModalStore = create<RoleModalState>()(

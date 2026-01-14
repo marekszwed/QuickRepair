@@ -1,31 +1,22 @@
 import { Roles } from "@/constants/constants";
-import { verifyToken } from "@/lib/auth";
+import { checkToken } from "@/helpers/checkToken";
 import connectToMongoDb from "@/lib/mongodb";
 import User from "@/models/Users";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function patchUsersRole(request: Request) {
 	try {
 		await connectToMongoDb();
-		const token = (await cookies()).get("authToken")?.value;
 
-		if (!token)
-			return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-
-		let decoded: { id: string };
-		try {
-			decoded = verifyToken(token) as { id: string };
-		} catch (err) {
-			return NextResponse.json({ message: "Invalid token" }, { status: 403 });
-		}
-
-		if (!decoded?.id) {
+		const tokenCheck = await checkToken();
+		if (!tokenCheck.ok) {
 			return NextResponse.json(
-				{ error: "Invalid token data" },
-				{ status: 403 }
+				{ error: tokenCheck.response!.error },
+				{ status: tokenCheck.response!.status }
 			);
 		}
+
+		const userId = tokenCheck.userId;
 
 		const body = await request.json();
 		const { role } = body;
@@ -39,7 +30,7 @@ export async function patchUsersRole(request: Request) {
 		}
 
 		const updatedUser = await User.findByIdAndUpdate(
-			decoded.id,
+			userId,
 			{ role },
 			{ new: true }
 		);

@@ -34,7 +34,7 @@ type DashboardProps = {
 };
 
 function ClientDashboardLayout({ pathname, children }: DashboardProps) {
-	const router = useDemoRouter("/dashboard");
+	const router = useDemoRouter(Routes.clientPanel);
 	const rout = useRouter();
 
 	function handleLogOut() {

@@ -1,37 +1,13 @@
-"use client";
-import { useEffect, useState } from "react";
-import axios from "axios";
+"use server";
+import { getRoleFromServer } from "@/backend/auth/getRoleFromServer";
+import { Roles } from "@/constants/constants";
 import { Routes } from "@/routes/routes";
-import SpecialistDahboardContent from "@/components/dashboard/SpecialistDashboardContent";
-import CustomerDashboardContent from "@/components/dashboard/CustomerDashboardContent";
-import ClientDashboardLayout from "@/components/dashboard/ClientDashboardLayout/ClientDashboardLayout";
+import { redirect } from "next/navigation";
 
-function ClientPanelRootLayout() {
-	const [role, setRole] = useState<string | null>(null);
+export default async function ClientPanelRootLayout() {
+	const { role } = await getRoleFromServer();
 
-	useEffect(() => {
-		const checkRole = async () => {
-			try {
-				const { data } = await axios.get("/api/auth/set-role");
-				console.log("Pobrana rola:", data.role);
-				setRole(data.role);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		checkRole();
-	}, []);
-
-	if (!role) return <p>Loading...</p>;
-
-	const Content =
-		role === "customer" ? CustomerDashboardContent : SpecialistDahboardContent;
-
-	return (
-		<ClientDashboardLayout pathname={Routes.clientPanel}>
-			<Content />
-		</ClientDashboardLayout>
-	);
+	if (role === Roles.Customer) redirect(Routes.customerPanel);
+	if (role === Roles.Specialist) redirect(Routes.specialistPanel);
+	if (!role) redirect(Routes.rolepage);
 }
-
-export default ClientPanelRootLayout;

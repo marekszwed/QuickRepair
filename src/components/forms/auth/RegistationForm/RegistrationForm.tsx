@@ -39,7 +39,7 @@ const initialValues = {
 
 function RegistrationForm({ onSuccess }: RegistrationFormProps) {
 	const router = useRouter();
-	const closeForm = useDialogState();
+	// const closeForm = useDialogState();
 	const [showPassword, setShowPassword] = useState(false);
 	const formBag = useForm<RegistrationFormType>({
 		resolver: zodResolver(registrationSchema),
@@ -53,7 +53,7 @@ function RegistrationForm({ onSuccess }: RegistrationFormProps) {
 	>("/api/users", {
 		successMessage: "Registration complete successfully",
 		onSuccess: () => {
-			closeForm.close();
+			// closeForm.close();
 			router.push(Routes.rolepage);
 			alert("Registration complete successfuly");
 			onSuccess?.();

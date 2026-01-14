@@ -1,17 +1,27 @@
+import { Roles } from "@/constants/constants";
 import { verifyToken } from "@/lib/auth";
 import connectToMongoDb from "@/lib/mongodb";
 import User from "@/models/Users";
+import { DecodedToken } from "@/types/token";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+
+type UserResponse = {
+	_id: string;
+	name: string;
+	email: string;
+	role: Roles;
+};
 
 export async function getUserRole() {
 	try {
 		await connectToMongoDb();
+		const cookieStore = await cookies();
 
-		const token = (await cookies()).get("authToken")?.value;
+		const token = cookieStore.get("authToken")?.value;
 		if (!token) return NextResponse.json({ user: null }, { status: 401 });
 
-		const decoded = verifyToken(token) as { id: string };
+		const decoded = verifyToken(token) as DecodedToken;
 
 		if (!decoded.id) {
 			return NextResponse.json(
@@ -20,7 +30,9 @@ export async function getUserRole() {
 			);
 		}
 
-		const user = await User.findById(decoded.id).select("role name email");
+		const user = await User.findById<UserResponse>(decoded.id).select(
+			"role name email"
+		);
 
 		if (!user) {
 			return NextResponse.json(

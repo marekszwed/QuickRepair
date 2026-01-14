@@ -20,9 +20,10 @@ function ProfessionGrid() {
 	const handleMouseLeave = (index: number) => () => {
 		lottieRefs.current[index]?.current?.stop();
 	};
+
 	return (
 		<Box sx={{ maxWidth: "1024px", width: "100%", mt: 10, flexGrow: 1 }}>
-			<Typography variant="h3" sx={{ marginBlock: 7 }}>
+			<Typography component="h2" variant="h3" sx={{ marginBlock: 7 }}>
 				What we offer
 			</Typography>
 			<Grid
