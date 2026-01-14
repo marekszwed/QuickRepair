@@ -19,7 +19,7 @@ function TestimonialCard({
 	review,
 }: TestimonialCardProps) {
 	return (
-		<S.SnapCard>
+		<S.SnapCard sx={{ borderRadius: 3 }}>
 			<CardActionArea sx={{ display: "flex", justifyContent: "center" }}>
 				<Avatar
 					src={image}

@@ -1,3 +1,4 @@
+"use client";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";

@@ -30,7 +30,7 @@ export async function postRegisterUser(request: Request) {
 		const existing = await User.findOne({ email });
 		if (existing) {
 			return NextResponse.json(
-				{ message: "Email już istnieje" },
+				{ message: "Email already exists" },
 				{ status: 400 }
 			);
 		}
@@ -51,6 +51,7 @@ export async function postRegisterUser(request: Request) {
 			{ status: 201 }
 		);
 		setAuthToken(res, token);
+
 		return res;
 	} catch (error: unknown) {
 		generateErrorResponse(error, "Registration failed");

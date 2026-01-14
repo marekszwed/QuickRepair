@@ -3,7 +3,8 @@
 		"login": "Zaloguj się",
 		"log out": "Wyloguj się",
 		"register": "Zarejestruj się",
-		"services": "Usługi"
+		"services": "Usługi",
+		"get started": "Rozpocznij"
 	},
 	"Reviews": [
 		{
@@ -35,6 +36,87 @@
 		},
 		{
 			"review": "Jestem bardzo zadowolony – wreszcie łatwo i szybko można zamówić naprawę."
+		}
+	],
+	"Professions": [
+		{
+			"category": "Usługi domowe",
+			"professions": [
+				"Hydraulik",
+				"Elektryk",
+				"Złota rączka",
+				"Stolarz",
+				"Ślusarz"
+			]
+		},
+		{
+			"category": "Remont i budowa",
+			"professions": ["Murarz", "Tynkarz", "Glazurnik", "Dekarz", "Cieśla"]
+		},
+		{
+			"category": "Wykończenia wnętrz",
+			"professions": [
+				"Malarz",
+				"Tapeciarz",
+				"Monter mebli",
+				"Szklarz",
+				"Parkieciarz"
+			]
+		},
+		{
+			"category": "Ogród i teren",
+			"professions": [
+				"Ogrodnik",
+				"Brukarz",
+				"Monter ogrodzeń",
+				"Architekt krajobrazu"
+			]
+		},
+		{
+			"category": "Motoryzacja",
+			"professions": [
+				"Mechanik",
+				"Lakiernik",
+				"Blacharz",
+				"Elektryk samochodowy"
+			]
+		},
+		{
+			"category": "Sprzątanie i konserwacja",
+			"professions": [
+				"Sprzątacz",
+				"Mycie okien",
+				"Czyszczenie tapicerki",
+				"Konserwator budynków"
+			]
+		},
+		{
+			"category": "Technologie i instalacje",
+			"professions": [
+				"Informatyk",
+				"Monter paneli fotowoltaicznych",
+				"Instalator systemów alarmowych",
+				"Specjalista klimatyzacji"
+			]
+		},
+		{
+			"category": "Inne usługi",
+			"professions": [
+				"Wykonawca ogólny",
+				"Przeprowadzki",
+				"Spawacz",
+				"Operator maszyn"
+			]
+		},
+		{
+			"category": "Naprawa urządzeń AGD",
+			"professions": [
+				"Serwisant pralek",
+				"Specjalista od naprawy lodówek",
+				"Serwisant piekarników i kuchenek",
+				"Technik zmywarek",
+				"Naprawa sprzętu RTV"
+			]
 		}
 	]
 }

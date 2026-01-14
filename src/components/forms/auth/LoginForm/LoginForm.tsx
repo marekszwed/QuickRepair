@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthMutation } from "@/hooks/useAuthMutation";
 import { useRouter } from "next/navigation";
 import { Routes } from "@/routes/routes";
+import axios from "axios";
 
 type LoginFormProps = {
 	onSuccess?: () => void;
@@ -40,10 +41,22 @@ function LoginForm({ onSuccess }: LoginFormProps) {
 		"/api/auth/login",
 		{
 			successMessage: "Login completed successfully",
-			onSuccess: () => {
-				router.push(Routes.clientPanel);
-				alert("Login successful");
-				onSuccess?.();
+			onSuccess: async () => {
+				try {
+					const { data } = await axios.get("/api/auth/role");
+
+					if (!data.user || !data.role) {
+						alert("Nie udało się pobrać roli użytkownika");
+						return;
+					}
+
+					router.push(Routes.clientPanel);
+
+					onSuccess?.();
+				} catch (err) {
+					console.error("Błąd pobierania roli:", err);
+					alert("Błąd podczas sprawdzania roli użytkownika");
+				}
 			},
 		}
 	);

@@ -1,3 +1,4 @@
+"use client";
 function ClientPage() {
 	return <div></div>;
 }
