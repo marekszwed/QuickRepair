@@ -8,7 +8,7 @@ import { Routes } from "@/routes/routes";
 import { useState } from "react";
 
 function RolePage() {
-	const [selectedRole, setSelectedRole] = useState<Roles | "">("");
+	const [selectedRole, setSelectedRole] = useState<Roles | null>(null);
 	const updateRole = useUpdateRole();
 	const location = useRouter();
 
@@ -27,7 +27,7 @@ function RolePage() {
 					{ id: "customer", label: "Customer", value: Roles.Customer },
 					{ id: "specialist", label: "Specialist", value: Roles.Specialist },
 				]}
-				selected={selectedRole}
+				selected={selectedRole ?? ""}
 				onChange={(value) => handleChangeModalState(value as Roles)}
 			/>
 		</S.RoleBox>

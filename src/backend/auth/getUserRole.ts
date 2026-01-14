@@ -2,12 +2,9 @@ import { Roles } from "@/constants/constants";
 import { verifyToken } from "@/lib/auth";
 import connectToMongoDb from "@/lib/mongodb";
 import User from "@/models/Users";
+import { DecodedToken } from "@/types/token";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-
-type DecodedToken = {
-	id: string;
-};
 
 type UserResponse = {
 	_id: string;
