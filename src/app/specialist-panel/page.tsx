@@ -1,5 +1,7 @@
+import { SpecialistContent } from "@/components";
+
 function SpecialistPanel() {
-	return <p>Specialist content</p>;
+	return <SpecialistContent />;
 }
 
 export default SpecialistPanel;
