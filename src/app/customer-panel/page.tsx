@@ -1,5 +1,7 @@
+import CustomerContent from "@/components/contents/customer/CustomerContent";
+
 function CustomerPanel() {
-	return <p>Customer content</p>;
+	return <CustomerContent />;
 }
 
 export default CustomerPanel;

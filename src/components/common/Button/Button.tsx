@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from "@mui/material";
 import { buttonVariants } from "./Button.styled";
 
-type ColorVariant = "primary" | "second" | "third";
+type ColorVariant = "primary" | "second" | "third" | "fourth";
 
 type ButtonType = {
 	text: string;
